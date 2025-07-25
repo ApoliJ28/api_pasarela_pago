@@ -13,6 +13,7 @@ class User(Base):
     last_name = Column(String)
     password = Column(String)
     is_active = Column(Boolean, default=True)
+    is_admin = Column(Boolean, default=False)
     created_datetime = Column(DateTime)
     updated_datetime = Column(DateTime)
     

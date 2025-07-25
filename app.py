@@ -3,15 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from dotenv import load_dotenv
 import os
-from database.db import engine
-from models import user, order
+
+from routes import auth
 
 load_dotenv()
 
-app = FastAPI(debug=True)
-
-user.Base.metadata.create_all(bind=engine)
-order.Base.metadata.create_all(bind=engine)
+app = FastAPI(title="API Payment Gateway",debug=True)
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +17,8 @@ app.add_middleware(
     allow_methods=['*'],
     allow_headers=['*']
 )
+
+app.include_router(auth.router)
 
 @app.get('/', include_in_schema=False)
 async def index():
